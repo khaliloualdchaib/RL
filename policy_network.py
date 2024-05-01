@@ -10,4 +10,5 @@ class PolicyNetwork(nn.Module):
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
-        return x
+        action_probs = F.softmax(x, dim=-1)
+        return action_probs

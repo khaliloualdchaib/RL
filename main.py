@@ -3,7 +3,7 @@ import gym
 import torch
 import numpy as np
 
-env = gym.make('LunarLanderContinuous-v2')
+env = gym.make("LunarLander-v2", continuous=True)
 
 # Define the dimensions of the input and output
 input_dim = 8  # Dimensionality of the state space in LunarLanderContinuous
