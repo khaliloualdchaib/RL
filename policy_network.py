@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-
+import torch
 class PolicyNetwork(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
         super(PolicyNetwork, self).__init__()
@@ -10,5 +10,5 @@ class PolicyNetwork(nn.Module):
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
-        action_probs = F.softmax(x, dim=-1)
-        return action_probs
+        action_vals = torch.tanh(x)
+        return action_vals
