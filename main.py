@@ -1,7 +1,8 @@
 from policy_network import PolicyNetwork
 import gym
-import torch
-from rl_algo import zeroth_order_method
+from zeroth_order_method import zeroth_order_method
+from population_method import population_method
+
 env = gym.make("LunarLander-v2", continuous=True)
 action_space = env.action_space
 
@@ -12,5 +13,6 @@ output_dim = 2  # Dimensionality of the action space in LunarLanderContinuous
 
 # Create an instance of the PolicyNetwork
 policy_net = PolicyNetwork(input_dim, hidden_dim, output_dim)
-trained_policy = zeroth_order_method(env, policy_net)
+#trained_policy = zeroth_order_method(env, policy_net)
+trained_policy = population_method(env, policy_net, 20)
 
