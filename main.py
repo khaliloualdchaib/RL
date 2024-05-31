@@ -13,5 +13,4 @@ output_dim = 2  # Dimensionality of the action space in LunarLanderContinuous
 # Create an instance of the PolicyNetwork
 policy_net = PolicyNetwork(input_dim, hidden_dim, output_dim)
 
-# Run the zeroth-order method with logging
-zeroth_order_method(env, policy_net, num_iterations=200, initial_learning_rate=0.0001, log_file="zeroth_order_log.txt")
+zeroth_order_method(env, policy_net, num_iterations=1000, initial_learning_rate=0.001, log_file="zeroth_order_log.txt")

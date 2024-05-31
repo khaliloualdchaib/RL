@@ -20,7 +20,7 @@ def evaluate_policy(env, policy_net, parameters):
                 next_state, reward, done, _, _ = env.step(action) 
                 total_return += reward
                 observation = torch.from_numpy(next_state).float()
-            if step == 100:
+            if step == 1000:
                 break
     avg_return = total_return / episodes
     return avg_return
