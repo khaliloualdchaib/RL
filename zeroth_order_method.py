@@ -18,9 +18,8 @@ def zeroth_order_method(env, policy_net, num_iterations=100, initial_learning_ra
 
             score_plus = evaluate_policy(env, policy_net, perturbed_params_plus)
             score_minus = evaluate_policy(env, policy_net, perturbed_params_minus)
-
-            perturbation_norm = sum((p ** 2).sum() for p in perturbation).sqrt()
-            gradient_estimate = [0.5 * (score_plus - score_minus) * perturbation[i] / perturbation_norm for i in range(len(perturbed_params_plus))]
+            
+            gradient_estimate = [0.5 * (score_plus - score_minus) * perturbation[i] for i in range(len(perturbed_params_plus))]
             
             with torch.no_grad():
                 for param, grad in zip(policy_net.parameters(), gradient_estimate):

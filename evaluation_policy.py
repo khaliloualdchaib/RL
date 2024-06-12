@@ -1,26 +1,31 @@
 import torch
+import numpy as np
+import sys
 
-def evaluate_policy(env, policy_net, parameters):
-    episodes = 10
-    total_return = 0
-    for episode in range(episodes):
+def evaluate_policy(env, policy_net, params, num_episodes=10):
+    total_return = 0.0
+    for episode in range(num_episodes):
         state = env.reset()
-        observation = state[0]
-        observation = torch.from_numpy(observation).float()
         done = False
         step = 0
+        current_state = state[0]
         while not done:
-            step+=1
+            step += 1
+            observation = torch.tensor(current_state, dtype=torch.float32)
+            observation = torch.unsqueeze(observation, 0)  # Add a batch dimension
             with torch.no_grad():
-                # Manually set the parameters for the policy network
-                for param, perturbed_param in zip(policy_net.parameters(), parameters):
+                # Set policy network parameters to perturbed parameters
+                for param, perturbed_param in zip(policy_net.parameters(), params):
                     param.copy_(perturbed_param)
-                action = policy_net(observation)
-                action = action.detach().numpy()
-                next_state, reward, done, _, _ = env.step(action) 
-                total_return += reward
-                observation = torch.from_numpy(next_state).float()
+                    
+                # Get action from the policy network
+                action_tensor = policy_net(observation)
+                action = action_tensor.detach().numpy().squeeze()
+            
+            # Take action in the environment
+            next_state, reward, done, _, _ = env.step(action)
+            total_return += reward
+            current_state = next_state
             if step == 1000:
                 break
-    avg_return = total_return / episodes
-    return avg_return
+    return total_return / num_episodes
