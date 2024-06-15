@@ -1,7 +1,7 @@
 import torch
 
 
-def evaluate_policy(env, policy_net, params, num_episodes=10, discount_factor=0.99):
+def evaluate_params(env, policy_net, params, num_episodes=10, discount_factor=0.99):
     episode_rewards = []
     original_params = [param.clone() for param in policy_net.parameters()]
     with torch.no_grad():
