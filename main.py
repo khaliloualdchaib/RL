@@ -19,4 +19,5 @@ zeroth_order_method(env,
                     learning_rate=0.001, 
                     log_file="zeroth_order_log.txt",
                     decay_rate=0.999,
-                    num_episodes_per_eval=10)
+                    num_episodes_per_eval=10,
+                    discount_factor=0.999)
