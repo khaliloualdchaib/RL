@@ -1,7 +1,7 @@
 from policy_network import PolicyNetwork
 import gym
 from zeroth_order_method import zeroth_order_method
-#from population_method import population_method
+from population_method import population_method
 
 env = gym.make("LunarLander-v2", continuous=True)
 
@@ -13,11 +13,20 @@ policy_net = PolicyNetwork(input_dim, hidden_dim, output_dim)
 
 
 
-zeroth_order_method(env, 
-                    policy_net, 
-                    num_iterations=1000,  
-                    learning_rate=0.001, 
-                    log_file="zeroth_order_log.txt",
-                    decay_rate=0.999,
-                    num_episodes_per_eval=10,
-                    discount_factor=0.999)
+
+population_method(env=env,
+                  policy_net=policy_net,
+                  num_iterations=1000,
+                  number_pertubations=5,
+                  episodes_per_eval=20,
+                  log_file="population_method_log.txt",
+                  discount_factor=0.999)
+
+# zeroth_order_method(env, 
+#                     policy_net, 
+#                     num_iterations=1000,  
+#                     learning_rate=0.001, 
+#                     log_file="zeroth_order_log.txt",
+#                     decay_rate=0.999,
+#                     num_episodes_per_eval=10,
+#                     discount_factor=0.999)
